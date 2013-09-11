@@ -12,9 +12,10 @@
 		// minified (especially when both are regularly referenced in your plugin).
 
 		// Create the defaults once
-		var pluginName = "defaultPluginName",
+		var pluginName = "rajib",
 				defaults = {
-				propertyName: "value"
+				allow: ".allow",
+				deny: ".deny"
 		};
 
 		// The actual plugin constructor
@@ -32,13 +33,42 @@
 
 		Plugin.prototype = {
 				init: function () {
-						// Place initialization logic here
-						// You already have access to the DOM element and
-						// the options via the instance, e.g. this.element
-						// and this.options
-						// you can add more functions like the one below and
-						// call them like so: this.yourOtherFunction(this.element, this.options).
-						console.log("xD");
+						var self = this;
+						var select = $(this.element)
+							.addClass('hide')
+							.find('option')
+							.map(function(indx,data){
+								return { id:$(data).val(), text:$(data).text()}
+							});
+
+						var ul = $('<div>',{
+							'class':'nav nav-pills nav-stacked'
+						});
+
+						$.each(select,function(idx,option){
+							var li = $('<div>',{text: option.text});
+
+							iAllow = $('<a href="#"><i class="icon-ok"></i></a>');
+							iDeny =  $('<a href="#"><i class="icon-remove"></i></a>');
+							iAllow.on('click',function(e){
+								var item = $(this).parent().remove();
+								$(item).appendTo(self._defaults.allow);
+							});
+
+							iDeny.on('click',function(e){
+								var item = $(this).parent().remove();
+								$(item).appendTo(self._defaults.deny);
+							});
+
+							
+							iAllow.prependTo(li);
+							iDeny.prependTo(li);
+
+							// a.appendTo(li);
+							li.appendTo(ul);
+						});
+
+						ul.insertAfter($(this.element));
 				},
 				yourOtherFunction: function () {
 						// some logic

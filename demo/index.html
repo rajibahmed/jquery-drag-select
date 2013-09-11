@@ -10,9 +10,14 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 <script type="text/javascript" src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-<script src="../dist/jquery.boilerplate.js"></script>
+<script src="../src/jquery.boilerplate.js"></script>
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css">
 </head>
+<style type="text/css">
+	ul li{
+		display:block;
+	}
+</style>
 <body>
 <div class="container-fluid">
 	<div class="row-fluid">
@@ -103,39 +108,34 @@
 			</div>
 		</div>
 	</div>
+
 	<div class="row-fluid">
-		<div class="span4">
-			<h2>
-				Heading
-			</h2>
-			<p>
-			Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-			</p>
-			<p>
-			<a class="btn" href="#">View details »</a>
-			</p>
+		<div class="span3">
+			<div class="controls-group">
+				<div class="controls">
+					<select id="combobox">
+						<option value="a">asp</option>
+						<option value="c">c</option>
+						<option value="cpp">c++</option>
+						<option value="cf">coldfusion</option>
+						<option value="g">groovy</option>
+						<option value="h">haskell</option>
+						<option value="j">java</option>
+						<option value="js">javascript</option>
+						<option value="p1">perl</option>
+						<option value="p2">php</option>
+						<option value="p3">python</option>
+						<option value="r">ruby</option>
+						<option value="s">scala</option>
+				</select></div>
+			</div>
 		</div>
-		<div class="span4">
-			<h2>
-				Heading
-			</h2>
-			<p>
-			Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-			</p>
-			<p>
-			<a class="btn" href="#">View details »</a>
-			</p>
+
+		<div class="allow span3">
+	
 		</div>
-		<div class="span4">
-			<h2>
-				Heading
-			</h2>
-			<p>
-			Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-			</p>
-			<p>
-			<a class="btn" href="#">View details »</a>
-			</p>
+		<div class="deny span3">
+
 		</div>
 	</div>
 </div>
