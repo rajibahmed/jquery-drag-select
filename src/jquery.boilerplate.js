@@ -2,15 +2,6 @@
 // scripts and/or other plugins which may not be closed properly.
 ;(function ( $, window, document, undefined ) {
 
-		// undefined is used here as the undefined global variable in ECMAScript 3 is
-		// mutable (ie. it can be changed by someone else). undefined isn't really being
-		// passed in so we can ensure the value of it is truly undefined. In ES5, undefined
-		// can no longer be modified.
-
-		// window and document are passed through as local variable rather than global
-		// as this (slightly) quickens the resolution process and can be more efficiently
-		// minified (especially when both are regularly referenced in your plugin).
-
 		// Create the defaults once
 		var pluginName = "rajib",
 				defaults = {
@@ -40,38 +31,52 @@
 							.map(function(indx,data){
 								return { id:$(data).val(), text:$(data).text()}
 							});
-
-						var ul = $('<div>',{
-							'class':'nav nav-pills nav-stacked'
-						});
-
+					
+						var item = _.template($('#row').html());
+						
 						$.each(select,function(idx,option){
-							var li = $('<div>',{text: option.text});
-
-							iAllow = $('<a href="#"><i class="icon-ok"></i></a>');
-							iDeny =  $('<a href="#"><i class="icon-remove"></i></a>');
-							iAllow.on('click',function(e){
-								var item = $(this).parent().remove();
-								$(item).appendTo(self._defaults.allow);
-							});
-
-							iDeny.on('click',function(e){
-								var item = $(this).parent().remove();
-								$(item).appendTo(self._defaults.deny);
-							});
-
-							
-							iAllow.prependTo(li);
-							iDeny.prependTo(li);
-
-							// a.appendTo(li);
-							li.appendTo(ul);
+							var row = item(option);
+							addItem(row);
 						});
 
-						ul.insertAfter($(this.element));
-				},
-				yourOtherFunction: function () {
-						// some logic
+						$('.allow').on('add.allow',removeItem);
+						$('.deny').on('add.deny',removeItem);
+						
+						function addItem(row){
+							$(row)
+							.on('click','.allow',function(e){
+								var cItem = $(this).closest('.item').clone(true,true).end().remove();
+								cItem.find('.allow,.deny')
+									.addClass('hide')
+								.end()
+									.find('.back')
+									.removeClass('hide');
+								$('div.allow').append(cItem).trigger('add.allow');
+							})
+							.on('click','.deny',function(e){
+								var cItem = $(this).closest('.item').clone(true,true).end().remove();
+								cItem.find('.allow,.deny')
+									.addClass('hide')
+								.end()
+									.find('.back')
+									.removeClass('hide');
+								$('div.deny').append(cItem).trigger('add.deny');
+							})
+							.insertAfter(self.element);
+						}
+						function removeItem(){
+							$(this).find('.back').on('click',function(e){
+								var cItem = $(this).closest('.item').clone(true).end().remove();
+								cItem.find('.allow,.deny')
+									.removeClass('hide')
+								.end()
+									.find('.back')
+									.addClass('hide');
+								
+								addItem(cItem);
+								$(self.element).after(cItem);
+							});
+						}
 				}
 		};
 
